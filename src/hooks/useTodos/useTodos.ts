@@ -1,20 +1,21 @@
 import { useEffect, useReducer } from 'react';
 import { todoReducer } from './todoReducer';
 import {
-  Action,
   ActionType,
   AddTodoAction,
   DeleteTodoAction,
-  Entity,
   ID,
-  Payload,
   Todo,
   ToggleTodoAction,
 } from './types';
 
-const init = () => {
+const init = (): Todo[] => {
   const todos = localStorage.getItem('todos');
   return todos ? JSON.parse(todos) : [];
+};
+
+const setTodos = (todos: Todo[]) => {
+  localStorage.setItem('todos', JSON.stringify(todos));
 };
 
 const initState: Todo[] = [];
@@ -23,7 +24,7 @@ export const useTodos = () => {
   const [todos, dispatch] = useReducer(todoReducer, initState, init);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    setTodos(todos);
   }, [todos]);
 
   const onNewTodo = (newTodo: Todo) => {

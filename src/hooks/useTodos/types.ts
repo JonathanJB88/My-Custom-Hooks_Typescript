@@ -5,8 +5,8 @@ export interface Entity<I extends UID = number> {
 }
 
 export interface Action<
-  T extends ActionType,
-  E extends Entity,
+  T extends ActionType = ActionType,
+  E extends Entity = Entity,
   P extends Payload<E> = Payload<E>
 > {
   type: T;
